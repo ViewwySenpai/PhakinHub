@@ -1,0 +1,63 @@
+PhakinHub Rust 6.1.2 — validation, 2026-11-11
+
+Font update: Fredoka-Regular.ttf and Mitr-Regular.ttf from the user-supplied
+archive are embedded. Both proportional and numeric text use the same fallback
+order: Fredoka, Mitr, then the default symbol fonts. OFL license texts included.
+Verified the font glyph coverage and mixed Thai/English Timer labels in the
+native application, in both Light and Dark themes.
+
+Build: Windows x64 MSVC, release profile, Cargo.lock pinned; successful.
+Automated checks: 65 unit tests passed, 0 failed.
+UI cleanup: removed the overview introduction banner, page subtitles, tool-card
+descriptions, sidebar tagline, and redundant introductory guidance in sections.
+The overview now renders each tool's artwork, title and existing Open tool action.
+Status messages and configuration controls remain available. No new tests were
+added for this text/layout-only change; the existing regression suite was run.
+No live UI control or screenshot capture was used for this update.
+Artwork checks: logo.png is reused for the sidebar brand. The three supplied PNGs
+are copied without modification to assets/tools and embedded using include_bytes!.
+PNG dimensions and alpha channels verified; transparent backgrounds retained.
+Rendering fits the original aspect ratio without recoloring the artwork.
+The three tool images replace the matching sidebar and overview icons.
+No live UI control or screenshot capture was used for this update.
+New regression checks cover remapped keys, side-button capture, stale events,
+Esc cancellation, binding without hooks, alias conflicts, and Enter/Space capture.
+Coverage includes timers, sparse timer deletion, imported AHK config,
+theme/settings save and reload, recording event parsing and balanced releases,
+mouse side-button routing, exact click coordinates, and custom playback speed.
+
+New detection checks (2026-11-11):
+- Correct x1, x2, x3 recognition from the three supplied screenshot HUD crops.
+- Missing speed HUD and solid patches of each target color do not match.
+- Tournament Left] header is distinguished from ordinary -Wave- screens.
+- Reduced and resampled HUD crops still match, simulating a smaller window.
+- Debounce requires stable readings before applying automatic speed.
+- Manual speed is not overwritten; unknown readings retain the current speed.
+- Tournament starts at 1500 seconds and advances by wall-clock time at every x.
+- Repeated, missing, or occluded headers do not restart a running/finished timer.
+- A stable ordinary Wave screen or explicit re-arm permits the next tournament.
+- Detection settings, custom regions, timer keybind, and detached state persist.
+- Old configs gain the Tournament timer once, preserving existing timer IDs.
+No computer-use actions or live desktop captures were performed for this release.
+Windows capture code was compiled but not exercised against a live Roblox window.
+Image validation uses cropped fixtures included in source/tests/fixtures only.
+Detection is template/color based, not OCR of the remaining seconds. It must be
+enabled before a tournament starts; enabling mid-round starts from 1500 seconds.
+Different HUD layouts, color filters, or game updates can require area adjustment.
+
+UI checks from the previous release (2026-11-03):
+- Light and Dark switch successfully.
+- Added TIMER 3; its Delete button is present.
+- Timer starts, counts up, detaches, stays synchronized, and docks again.
+- Detached timer follows the main theme.
+- Settings exposes functional keybind categories including Record / Playback.
+- Playback accepts 1.75x through the speed field and Apply button.
+- Katakuri switches ON/OFF and displays its live cooldown and interval.
+- Auto TS and Auto actions pages render their controls.
+- Mini view opens and returns to the full window.
+- Saved settings include the selected theme and speed.
+
+Limits: no live game input/playback test was performed. Physical keyboard and
+mouse recording was checked through the event-processing tests; no claim of
+end-to-end testing in Roblox or other games is made. GUI deletion itself was
+not clicked during this pass; deletion/persistence are covered by unit tests.
